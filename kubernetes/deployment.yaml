@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: quoterxp
-        image: 547057/student-app:latest
+        image: giovanni06/student-app:latest
         imagePullPolicy: Always
         ports:
           - containerPort: 5000
