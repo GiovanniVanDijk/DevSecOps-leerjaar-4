@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: student-devsecops
+  name: 547057
   labels:
     app: quoterxp
 spec:
@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: quoterxp
-        image: hhmbroekman/student-app:latest
+        image: 547057/student-app:latest
         imagePullPolicy: Always
         ports:
           - containerPort: 5000
