@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: 547057
+  name: student-app
   labels:
     app: quoterxp
 spec:
@@ -23,5 +23,4 @@ spec:
         ports:
           - containerPort: 5000
       imagePullSecrets:
-        - name: regcred
-         
+        - name: my-registry-secret
