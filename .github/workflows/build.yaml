@@ -48,7 +48,7 @@ jobs:
           # Let op voor opdracht 3.3: 
           # Dit stopt de pipeline als er vulnerabilities zijn. 
           # Verander dit later naar 'false' of zet er een '#' voor om de pipeline te herstellen.
-          exit-code: true
+          exit-code: false
           exit-on: vulnerability
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
