@@ -66,7 +66,7 @@ def page(content,user_id,title,error=None):
     return f"""<!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <title>{title or "Quoter XP V1"}</title>
+  <title>{title or "Quoter XP V2"}</title>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
