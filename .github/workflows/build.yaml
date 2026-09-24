@@ -98,7 +98,7 @@ jobs:
     name: Deploy to Local Environment
     needs: [ test ]
     # Dezelfde lokale runner pakt ook de deployment op
-    runs-on: [self-hosted, local-runner]
+    runs-on: [self-hosted, aws-runner]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
