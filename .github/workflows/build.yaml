@@ -35,7 +35,7 @@ jobs:
           push: true
           tags: |
             giovanni06/student-app:latest
-            ${{ secrets.REGISTRY_URL }}/library/student-app:latest
+            ${{ secrets.REGISTRY_URL }}/devsecops/student-app:latest
 
   scan:
     name: Scan
