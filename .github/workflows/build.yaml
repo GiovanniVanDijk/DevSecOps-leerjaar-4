@@ -38,7 +38,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.REGISTRY_URL }}/library/student-app:latest
+            ${{ secrets.REGISTRY_URL }}/devsecops/student-app:latest
 
   scan:
     name: Scan
