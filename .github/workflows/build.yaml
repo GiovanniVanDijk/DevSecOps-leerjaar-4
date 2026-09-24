@@ -55,12 +55,16 @@ jobs:
 
       - name: Login to Local Harbor
         run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+
+      - name: Pull image locally voor Scout
+        run: docker pull ${{ secrets.REGISTRY_URL }}/devsecops/student-app:latest
           
       - name: Docker Scout CVEs
-        uses: docker/scout-action@v1.5.0
+        uses: docker/scout-action@v1
         with:
           command: cves
-          image: ${{ secrets.REGISTRY_URL }}/devsecops/student-app:latest
+          # local:// forceert Scout om de zojuist gepullde lokale image te gebruiken
+          image: local://${{ secrets.REGISTRY_URL }}/devsecops/student-app:latest
           only-severities: critical,high
           exit-code: false
           exit-on: vulnerability
