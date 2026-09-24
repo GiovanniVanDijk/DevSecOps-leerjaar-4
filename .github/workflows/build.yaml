@@ -5,7 +5,7 @@ on: push
 jobs:
   build:
     name: Build & Push (Docker Hub & Harbor)
-    runs-on: [self-hosted, local-runner]
+    runs-on: [self-hosted, harbor-runner]
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
