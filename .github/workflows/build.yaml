@@ -6,7 +6,7 @@ jobs:
   build:
     name: Build & Push (Docker Hub & Harbor)
     # Hier dwingen we af dat de build op jouw lokale runner draait i.v.m. het lokale IP van Harbor
-    runs-on: [self-hosted, local-runner]
+    runs-on: [self-hosted, harbor-runner]
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v3
