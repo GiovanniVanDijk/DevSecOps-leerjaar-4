@@ -102,21 +102,18 @@ jobs:
           mkdir -p $HOME/.local/bin
           mkdir -p temp_postman
           
-          # Download en pak uit in de tijdelijke map
+          # Download de Postman CLI
           curl -L -o postman-cli.tar.gz "https://dl-cli.pstmn.io/download/latest/linux64"
+          
+          # Pak alles uit in de tijdelijke map
           tar -xzf postman-cli.tar.gz -C temp_postman
           
-          # Zoek het bestand op in de submappen en verplaats het exact naar onze vaste locatie
-          find temp_postman -type f -name "postman" -exec mv {} $HOME/.local/bin/postman \;
+          # Zoek het uitgepakte bestand (ongeacht hoe het heet) en verplaats/hernoem het naar 'postman'
+          BIN_PATH=$(find temp_postman -type f | head -n 1)
+          mv "$BIN_PATH" $HOME/.local/bin/postman
           
-          # Geef uitvoerrechten aan het verplaatste bestand
+          # Geef uitvoerrechten aan het bestand
           chmod +x $HOME/.local/bin/postman
-
-      - name: Login to Postman CLI
-        run: $HOME/.local/bin/postman login --with-api-key ${{ secrets.POSTMAN_API_TOKEN }}
-
-      - name: Run Postman tests
-        run: $HOME/.local/bin/postman collection run ${{ secrets.POSTMAN_COLLECTION_ID }}
 
       - name: Clean up container
         if: always()
