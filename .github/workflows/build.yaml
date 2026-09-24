@@ -21,7 +21,7 @@ jobs:
       
       - name: Login to Local Harbor
         run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
-        
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
@@ -51,10 +51,10 @@ jobs:
           echo "/snap/bin" >> $GITHUB_PATH
 
       - name: Login to Docker Hub
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | /usr/bin/docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to Local Harbor
-        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | /usr/bin/docker login ${{ secrets.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
           
       - name: Docker Scout CVEs
         uses: docker/scout-action@v1.5.0
@@ -82,14 +82,14 @@ jobs:
           echo "/snap/bin" >> $GITHUB_PATH
 
       - name: Login to Docker Hub
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | /usr/bin/docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Login to Local Harbor
-        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | /usr/bin/docker login ${{ secrets.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
 
       - name: Start container locally for testing
         run: |
-          docker run -d -p 80:5000 ${{ secrets.REGISTRY_URL }}/devsecops/student-app:latest
+          docker run -d -p 8080:5000 ${{ secrets.REGISTRY_URL }}/devsecops/student-app:latest
           # Geef de container 10 seconden om volledig op te starten voordat we testen
           sleep 10s
 
