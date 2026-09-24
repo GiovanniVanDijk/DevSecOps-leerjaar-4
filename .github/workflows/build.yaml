@@ -89,8 +89,8 @@ jobs:
 
       - name: Start container locally for testing
         run: |
-          docker run -d -p 8080:5000 ${{ secrets.REGISTRY_URL }}/devsecops/student-app:latest
-          # Geef de container 10 seconden om volledig op te starten voordat we testen
+          # We geven de container nu de naam 'test-app'
+          docker run -d --name test-app -p 8080:5000 ${{ secrets.REGISTRY_URL }}/devsecops/student-app:latest
           sleep 10s
 
       - name: Install Postman CLI
@@ -105,11 +105,10 @@ jobs:
           postman collection run ${{ secrets.POSTMAN_COLLECTION_ID }}
 
       - name: Clean up container
-        # always() zorgt ervoor dat de container ook wordt verwijderd als de Postman test faalt
         if: always()
         run: |
-          docker ps -aq | xargs -r docker stop
-          docker ps -aq | xargs -r docker rm
+          # Forceer het verwijderen van alléén de test-app, laat Harbor met rust!
+          docker rm -f test-app
 
   deploy:
     name: Deploy
