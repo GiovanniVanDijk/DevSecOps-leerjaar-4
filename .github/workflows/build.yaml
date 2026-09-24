@@ -99,28 +99,20 @@ jobs:
 
       - name: Install Postman CLI
         run: |
-          # Maak de benodigde mappen aan
+          # Maak de lokale map aan
           mkdir -p $HOME/.local/bin
-          mkdir -p temp_postman
-          
-          # Download de Postman CLI tarball
+          # Download de Postman CLI
           curl -L -o postman-cli.tar.gz "https://dl-cli.pstmn.io/download/latest/linux64"
-          
-          # Pak alles uit in de tijdelijke map
-          tar -xzf postman-cli.tar.gz -C temp_postman
-          
-          # Zoek het 'postman' bestand op en verplaats het naar onze lokale bin map
-          find temp_postman -type f -name "postman" -exec mv {} $HOME/.local/bin/ \;
-          
-          # Voeg de map toe aan het PATH
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          # Pak hem direct uit in onze nieuwe map
+          tar -xzf postman-cli.tar.gz -C $HOME/.local/bin/
+          # Geef het bestand de juiste rechten om uitgevoerd te mogen worden
+          chmod +x $HOME/.local/bin/postman
 
       - name: Login to Postman CLI
-        run: postman login --with-api-key ${{ secrets.POSTMAN_API_TOKEN }}
+        run: $HOME/.local/bin/postman login --with-api-key ${{ secrets.POSTMAN_API_TOKEN }}
 
       - name: Run Postman tests
-        run: |
-          postman collection run ${{ secrets.POSTMAN_COLLECTION_ID }}
+        run: $HOME/.local/bin/postman collection run ${{ secrets.POSTMAN_COLLECTION_ID }}
 
       - name: Clean up container
         if: always()
