@@ -99,13 +99,17 @@ jobs:
 
       - name: Install Postman CLI
         run: |
-          # Maak de lokale map aan
           mkdir -p $HOME/.local/bin
-          # Download de Postman CLI
+          mkdir -p temp_postman
+          
+          # Download en pak uit in de tijdelijke map
           curl -L -o postman-cli.tar.gz "https://dl-cli.pstmn.io/download/latest/linux64"
-          # Pak hem direct uit in onze nieuwe map
-          tar -xzf postman-cli.tar.gz -C $HOME/.local/bin/
-          # Geef het bestand de juiste rechten om uitgevoerd te mogen worden
+          tar -xzf postman-cli.tar.gz -C temp_postman
+          
+          # Zoek het bestand op in de submappen en verplaats het exact naar onze vaste locatie
+          find temp_postman -type f -name "postman" -exec mv {} $HOME/.local/bin/postman \;
+          
+          # Geef uitvoerrechten aan het verplaatste bestand
           chmod +x $HOME/.local/bin/postman
 
       - name: Login to Postman CLI
