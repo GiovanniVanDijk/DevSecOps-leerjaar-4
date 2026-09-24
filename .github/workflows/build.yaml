@@ -99,7 +99,16 @@ jobs:
 
       - name: Install Postman CLI
         run: |
-          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+          # Download de Postman CLI direct
+          curl -L -o postman-cli.tar.gz "https://dl-cli.pstmn.io/download/latest/linux64"
+          # Pak het bestand uit
+          tar -xzf postman-cli.tar.gz
+          # Maak een lokale programma-map aan (geen sudo nodig)
+          mkdir -p $HOME/.local/bin
+          # Verplaats de postman applicatie hierheen
+          mv postman $HOME/.local/bin/
+          # Voeg de map toe aan het PATH zodat de runner 'postman' commando's herkent
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_TOKEN }}
