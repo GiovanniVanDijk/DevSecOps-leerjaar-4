@@ -29,12 +29,11 @@ jobs:
         with:
           driver-opts: |
             image=moby/buildkit:latest
-          # We geven de locatie van het certificaat op de runner mee aan de builder
           config-inline: |
-            [registry."192.168.40.135"]
+            [registry."${{ secrets.REGISTRY_URL }}"]
               http = false
               insecure = false
-              ca=["/etc/docker/certs.d/192.168.40.135/ca.crt"]
+              ca=["/etc/docker/certs.d/${{ secrets.REGISTRY_URL }}/ca.crt"]
          
       - name: Build and push the Docker image to both registries
         uses: docker/build-push-action@v5
